@@ -1,0 +1,6 @@
+**/__pycache__/
+.pytest_cache/
+*.pyc
+.coverage
+*.egg-info/
+bayesian_optimization_solution.py

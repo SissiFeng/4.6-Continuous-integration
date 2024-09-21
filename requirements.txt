@@ -1,0 +1,12 @@
+-e . # package from this repo
+numpy<2.0
+pandas
+scikit-learn
+ax-platform
+kaleido # https://github.com/plotly/Kaleido/issues/134#issuecomment-1215791893, ==0.1.0.post1 is fix for Windows, but not cross-platform
+pytest
+#  scipy
+#  matplotlib
+#  matplotlib-inline
+#  ipython
+#  ipykernel
