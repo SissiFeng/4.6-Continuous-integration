@@ -1,0 +1,38 @@
+name: Submission Report
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  create-report:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests and create report
+      run: |
+        pytest --cov=src --cov-report=term-missing > test_report.txt
+        echo "Repository URL: ${{ github.event.repository.html_url }}" >> submission_report.txt
+        echo "Release URL: ${{ github.event.release.html_url }}" >> submission_report.txt
+        echo "Release Tag: ${{ github.event.release.tag_name }}" >> submission_report.txt
+        echo "\n--- Test Report ---" >> submission_report.txt
+        cat test_report.txt >> submission_report.txt
+        echo "\n--- Code Coverage ---" >> submission_report.txt
+        coverage report >> submission_report.txt
+    
+    - name: Upload submission report
+      uses: actions/upload-artifact@v2
+      with:
+        name: submission-report
+        path: submission_report.txt
