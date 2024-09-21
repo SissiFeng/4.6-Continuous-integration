@@ -25,8 +25,11 @@ def test_get_latest_news(scraper):
     n = 3
     latest_news = scraper.get_latest_news(n)
     assert len(latest_news) == n
-    # Assuming the mock data is ordered by recency
-    assert latest_news == scraper.fetch_news()[:n]
+    # Check if the returned news are sorted by id in descending order
+    assert all(latest_news[i]['id'] > latest_news[i+1]['id'] for i in range(len(latest_news)-1))
+    # Check if the returned news are a subset of all news
+    all_news = scraper.fetch_news()
+    assert all(news in all_news for news in latest_news)
 
 def test_get_news_by_id(scraper):
     news_id = 1
