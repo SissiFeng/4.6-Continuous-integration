@@ -2,9 +2,15 @@
 numpy<2.0
 pandas
 scikit-learn
-ax-platform
-kaleido # https://github.com/plotly/Kaleido/issues/134#issuecomment-1215791893, ==0.1.0.post1 is fix for Windows, but not cross-platform
-pytest
+
+requests==2.26.0
+beautifulsoup4==4.10.0
+pytest==7.3.1
+pytest-cov==4.0.0
+flake8==6.0.0
+black==23.3.0
+bandit==1.7.5
+sphinx==6.2.1
 #  scipy
 #  matplotlib
 #  matplotlib-inline
