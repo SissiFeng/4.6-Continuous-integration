@@ -11,6 +11,12 @@ MOCK_NEWS_DATA = [
         "content": "World leaders gather to discuss climate change mitigation strategies.",
         "category": "Environment"
     },
+    {
+        "id": 3,
+        "title": "New AI Breakthrough",
+        "content": "Researchers announce a significant advancement in artificial intelligence.",
+        "category": "Technology"
+    },
     
 ]
 
