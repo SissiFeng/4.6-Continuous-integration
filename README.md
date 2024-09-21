@@ -1,62 +1,167 @@
-# NewsHarvester: CI/CD Assignment
+# NewsHarvester: CI/CD and Web Scraping Project
 
 ## Introduction
 
-NewsHarvester is a web scraping project designed to demonstrate Continuous Integration and Continuous Deployment (CI/CD) practices. This project includes a web scraper, HTML parser, and a database interface for storing and retrieving news articles.
+NewsHarvester is a web scraping project designed to demonstrate the principles of Continuous Integration and Continuous Deployment (CI/CD) in software development. While the project simulates web scraping functionality, its primary purpose is to showcase how CI/CD practices can be applied to any software project, including web scrapers.
 
-## Objectives
+## Project Significance
 
-By completing this assignment, you will:
-
-1. Implement a web scraper with error handling and rate limiting
-2. Create an HTML parser using BeautifulSoup
-3. Develop a SQLite database interface
-4. Write comprehensive unit tests
-5. Set up a CI/CD pipeline using GitHub Actions
-6. Implement code quality checks (linting, formatting)
-7. Create and maintain project documentation
-8. Perform security scanning on your code
-9. Automate the deployment process
+1. **CI/CD Experience**: This project introduces you to real-world CI/CD practices, essential in modern software development.
+2. **Automated Testing**: Learn how to write and run automated tests, a crucial skill for ensuring code quality.
+3. **Code Quality Tools**: Experience using linters, formatters, and type checkers to maintain high code standards.
+4. **Version Control**: Practice using Git for version control, an indispensable tool in collaborative development.
+5. **Python Programming**: Enhance your Python skills by implementing various functionalities.
+6. **Software Design**: Understand how to structure a Python project with separate modules for different functionalities.
 
 ## Setup
 
+You have two options to set up this project: using GitHub Codespaces or working locally.
+
+### Option 1: GitHub Codespaces (Recommended)
+
 1. Fork this repository to your GitHub account.
-2. Clone your forked repository locally or open it in GitHub Codespaces.
-3. Install the required packages:
+2. From your forked repository, click on the "Code" button.
+3. Select the "Codespaces" tab.
+4. Click on "Create codespace on main" to launch a new Codespace.
+5. Wait for the Codespace to initialize. This may take a few minutes.
+6. Once initialized, you'll have a fully configured development environment in your browser.
+
+### Option 2: Local Setup
+
+If you prefer to work on your local machine:
+
+1. Fork this repository to your GitHub account.
+2. Clone your forked repository:
+   ```
+   git clone https://github.com/your-username/NewsHarvester.git
+   ```
+3. Navigate to the project directory:
+   ```
+   cd NewsHarvester
+   ```
+4. Install the required packages:
    ```
    pip install -r requirements.txt
    ```
 
+
 ## Tasks
 
-1. Complete the TODOs in `src/scraper.py`, `src/parser.py`, and `src/database.py`.
-2. Implement the missing unit tests in the `tests/` directory.
-3. Update the usage documentation in `docs/usage.md`.
-4. Modify the GitHub Actions workflow in `.github/workflows/ci.yml` if necessary.
-5. Ensure your code passes all linting and formatting checks.
-6. Address any security issues identified by Bandit.
-7. Set up PyPI deployment credentials in your GitHub repository secrets.
+1. Implement the following method in `src/scraper.py`:
+   - `get_news_by_id(self, news_id: int) -> Dict[str, str]`
+     💡 Hint: Use a loop or list comprehension to find the news item with the matching id. Remember to handle the case where the id doesn't exist.
+
+2. Implement the following methods in `src/parser.py`:
+   - `extract_keywords(article: Dict[str, str], num_keywords: int = 5) -> List[str]`
+     💡 Hint: Split the article content into words, count their frequencies (consider using `collections.Counter`), and return the most common words. You might want to exclude very common words (stop words) for better results.
+   
+   - `categorize_article(article: Dict[str, str]) -> str`
+     💡 Hint: Look for specific words in the article title or content that might indicate its category. You could use a simple if-else structure or a more sophisticated approach like a dictionary of category keywords.
+
+3. Implement the following methods in `src/database.py`:
+   - `update_article(self, article_id: int, updated_data: Dict[str, str])`
+     💡 Hint: Use an SQL UPDATE statement. Be sure to handle the case where the article_id doesn't exist.
+   
+   - `delete_article(self, article_id: int)`
+     💡 Hint: Use an SQL DELETE statement. Again, consider what should happen if the article_id doesn't exist.
+   
+   - `get_articles_by_category(self, category: str) -> List[Dict[str, str]]`
+     💡 Hint: Use an SQL SELECT statement with a WHERE clause to filter by category. Remember to return the results in the same format as the `get_articles()` method.
+
+For each implemented method:
+- Ensure it passes the corresponding unit tests in the `tests/` directory.
+- Add appropriate error handling and edge case management. Consider what should happen if inputs are invalid or if no results are found.
+- Follow PEP 8 style guidelines. You can use the `flake8` tool to check your code style.
+- Add type hints to your function parameters and return values to improve code readability and catch potential type-related errors early.
+
+💡 Remember, the goal is not just to make the tests pass, but to write clean, efficient, and robust code. Think about how your implementation would handle real-world scenarios and edge cases.
+
+## Running Tests
+
+Run the test suite using pytest
+
+
+## Code Quality Checks
+
+Maintaining high code quality is crucial in professional software development. Here are the checks you should run and what they mean:
+
+1. Run the linter:
+   ```
+   flake8 src tests
+   ```
+   💡 Flake8 checks your code for style and potential errors. It will output:
+   - Line numbers where issues are found
+   - Error codes (e.g., E501 for line too long)
+   - Brief descriptions of the issues
+
+   Aim for zero warnings. If you see output, it means there are style issues to fix.
+
+2. Check code formatting:
+   ```
+   black --check src tests
+   ```
+   💡 Black is an opinionated code formatter. This command checks if your code meets Black's style without changing it.
+   - If you see "All done!" it means your code is properly formatted.
+   - If you see "would reformat file.py", it means that file needs formatting. Run `black src tests` to automatically format your code.
+
+3. Run type checking:
+   ```
+   mypy src
+   ```
+   💡 Mypy checks for type consistency in your Python code. It will show:
+   - File names and line numbers with type issues
+   - Descriptions of type mismatches or other type-related problems
+
+   Aim for "Success: no issues found". Any output means there are type inconsistencies to address.
+
+4. Run tests with coverage:
+   ```
+   pytest --cov=src
+   ```
+   💡 This runs your tests and reports on code coverage. You'll see:
+   - Test results (passes and failures)
+   - A coverage report showing the percentage of code covered by tests
+   - Aim for 100% coverage, but anything above 80% is generally considered good.
+
+Understanding the output:
+- For flake8: Each line of output represents a style issue. The number at the start is the line number in your code.
+- For Black: "would reformat" means your code doesn't meet the style guide and needs formatting.
+- For mypy: Each line of output represents a type issue. It will show the file, line number, and description of the problem.
+- For pytest with coverage: Look at the percentage next to each file name. This represents how much of that file is covered by tests.
+
+Remember, the goal is to have all these checks pass without any warnings or errors. This ensures your code is clean, well-formatted, type-safe, and well-tested.
+
+## Continuous Integration
+
+This project uses GitHub Actions for CI. On each push:
+- All tests are run
+- Code coverage is checked
+- Linting and formatting are verified
+- Type checking is performed
+
+Check the Actions tab in your GitHub repository to see the results of these checks.
+
+## Why Web Scraping for CI?
+
+While this project simulates web scraping, the focus is on CI/CD practices. Web scraping projects often involve:
+1. Frequent updates to handle changes in target websites
+2. Need for robust error handling
+3. Data processing and storage
+4. Potential for breaking changes
+
+These characteristics make web scraping projects excellent candidates for demonstrating CI/CD principles. The skills you learn here (automated testing, code quality checks, CI pipelines) are transferable to any software project.
 
 ## Submission
 
 1. Ensure all your changes are committed and pushed to your GitHub repository.
-2. Submit the URL of your GitHub repository to your instructor.
+2. Verify that all CI checks pass in the GitHub Actions tab.
+3. Submit the URL of your GitHub repository to your instructor.
 
 ## Grading Criteria
 
-- Correct implementation of scraper, parser, and database (30%)
-- Comprehensive unit tests (20%)
-- Proper error handling and edge case management (10%)
-- Successful CI/CD pipeline execution (20%)
-- Code quality (linting, formatting, security) (10%)
-- Documentation quality (10%)
+- Correct implementation of required methods (40%)
+- Passing all unit tests (20%)
+- Code quality (adherence to PEP 8, proper error handling) (20%)
+- Successful CI pipeline execution (20%)
 
-## Resources
-
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Pytest Documentation](https://docs.pytest.org/)
-- [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-- [SQLite Documentation](https://www.sqlite.org/docs.html)
-- [Bandit Documentation](https://bandit.readthedocs.io/)
-
-Good luck!
+Good luck, and remember: the goal is not just to make a web scraper, but to understand and apply CI/CD principles!
