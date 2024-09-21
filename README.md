@@ -153,9 +153,35 @@ These characteristics make web scraping projects excellent candidates for demons
 
 ## Submission
 
-1. Ensure all your changes are committed and pushed to your GitHub repository.
-2. Verify that all CI checks pass in the GitHub Actions tab.
-3. Submit the URL of your GitHub repository to your instructor.
+1. Complete all the tasks in the project.
+
+2. Ensure all your changes are committed and pushed to your GitHub repository:
+   ```
+   git add .
+   git commit -m "Complete NewsHarvester project"
+   git push origin main
+   ```
+
+3. Wait for the GitHub Actions CI workflow to complete. You can check the status in the "Actions" tab of your GitHub repository.
+
+4. Verify that all CI checks pass. If any checks fail, make necessary corrections and push your changes again.
+
+5. Once all CI checks pass, create a new release:
+   - Go to the "Releases" section in your GitHub repository
+   - Click "Create a new release"
+   - Set the tag version to "v1.0.0"
+   - Set the release title to "NewsHarvester Project Submission"
+   - In the description, briefly summarize your implementation and any challenges you faced
+   - Click "Publish release"
+
+6. After publishing the release, a new GitHub Action will automatically generate a submission report. You can find this report in the "Actions" tab of your repository:
+   - Go to the "Actions" tab
+   - Click on the most recent "Submission Report" workflow run
+   - In the "Artifacts" section, you will see a "submission-report" file. This contains your submission details and test results.
+
+7. Your submission is complete once the "Submission Report" workflow has finished successfully.
+
+💡 Note: Make sure all your tests are passing and you have achieved satisfactory code coverage before creating your release. The submission report will include this information for grading purposes.
 
 ## Grading Criteria
 
